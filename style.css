@@ -1,0 +1,310 @@
+/* =========================================
+   1. GLOBAL RESET & BASE STYLES
+   ========================================= */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background: #E8ECCB;
+    font-family: Arial, sans-serif;
+    color: #5E6630;
+    
+    /* 100vh fallback for older browsers, 100dvh for modern mobile */
+    height: 100vh;
+    height: 100dvh; 
+    width: 100vw;
+    overflow: hidden; 
+    display: flex;
+    flex-direction: column;
+}
+
+/* =========================================
+   2. NAVBAR
+   ========================================= */
+.navbar {
+    width: 100%;
+    height: 65px; 
+    flex-shrink: 0; 
+    background: #C1CB84;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 5%;
+    color: #5E6630;
+}
+
+.navbar h1 { font-size: 20px; }
+.navbar a { text-decoration: none; color: #5E6630; font-weight: bold; }
+
+/* =========================================
+   3. MAIN STACKED LAYOUT
+   ========================================= */
+.main-container {
+    flex: 1; 
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly; 
+    width: 100%;
+    /* Standard padding on top, Safe Area calculation on bottom to dodge iOS/Android bars */
+    padding: 10px 0 40px 0; 
+    padding-bottom: calc(env(safe-area-inset-bottom, 20px) + 30px);
+}
+
+.section-title {
+    font-size: 20px;
+    text-align: center;
+}
+
+.swipe-hint {
+    font-size: 14px;
+    font-weight: normal;
+    color: #5E6630;
+    opacity: 0.7;
+    margin-left: 5px;
+}
+
+/* =========================================
+   4. ONE-AT-A-TIME CAROUSELS
+   ========================================= */
+.carousel-container {
+    width: 100%;
+    max-width: 280px; 
+    margin: 0 auto;
+}
+
+.horizontal-carousel {
+    display: flex;
+    flex-direction: row;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    width: 100%;
+    gap: 15px;
+    
+    -ms-overflow-style: none; 
+    scrollbar-width: none; 
+}
+
+.horizontal-carousel::-webkit-scrollbar { 
+    display: none; 
+}
+
+/* Dynamic Flashcards */
+.env-card, .tinnitus-card {
+    flex: 0 0 100%; 
+    height: 15vh; /* Shrunk slightly to guarantee room for the play button */
+    min-height: 110px; 
+    max-height: 160px; 
+    border-radius: 20px;
+    scroll-snap-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    font-weight: bold;
+    font-size: 20px; 
+    box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+    text-shadow: 0 1px 4px rgba(0,0,0,0.6);
+    color: white;
+}
+
+/* Environment Cards */
+.env-card { background-size: cover; background-position: center; border: 2px solid #5E6630; }
+.env-none { background: #E8ECCB; border: 2px dashed #5E6630; color: #5E6630; text-shadow: none; text-align: center; }
+.env-traffic { background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('assets/Traffic.jpg'); }
+.env-sleeping { background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('assets/Sleeping.jpg'); }
+.env-crowded { background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('assets/Crowd.jpg'); }
+.env-nature { background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('assets/Nature.jpg'); }
+
+/* Tinnitus Cards */
+.tinnitus-card { background: #C1CB84; color: #4D5425; text-shadow: none; border: 2px solid #5E6630; flex-direction: column; gap: 8px;}
+.info-btn {
+    width: 32px; height: 32px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.8);
+    display: flex; justify-content: center; align-items: center;
+    font-size: 16px; cursor: pointer; color: #4D5425; text-shadow: none;
+    position: absolute; top: 10px; right: 10px;
+}
+
+/* =========================================
+   5. BUTTONS AND ICONS
+   ========================================= */
+.plus-icon {
+    font-size: 35px;
+    font-weight: bold;
+    color: #5E6630;
+}
+
+.play-button {
+    /* Removed static margin to let the flex container control spacing naturally */
+    padding: 14px 60px; 
+    font-size: 18px; 
+    font-weight: bold;
+    background: #5E6630; 
+    color: white;
+    border: none; 
+    border-radius: 40px; 
+    cursor: pointer;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+}
+
+/* =========================================
+   6. POPUP
+   ========================================= */
+.popup-overlay {
+    position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+    background: rgba(0,0,0,0.6);
+    display: flex; justify-content: center; align-items: center;
+    opacity: 0; visibility: hidden; transition: 0.3s; z-index: 1000;
+}
+.popup-overlay.active { opacity: 1; visibility: visible; }
+
+.popup-box {
+    width: 90%; max-width: 600px;
+    background: #E8ECCB; padding: 40px; border-radius: 15px;
+    position: relative; text-align: center;
+}
+.close-popup {
+    position: absolute; top: 15px; right: 20px;
+    background: none; border: none; font-size: 28px;
+    cursor: pointer; color: #5E6630;
+}
+
+/* =========================================
+   7. ACTION ROW & BUTTONS
+   ========================================= */
+.action-row {
+    display: flex;
+    flex-direction: row;
+    gap: 15px;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}
+
+.calibrate-button {
+    padding: 14px 40px; 
+    font-size: 18px; 
+    font-weight: bold;
+    background: #C1CB84; /* The olive green from your nav/cards */
+    color: #5E6630;      /* Dark olive text */
+    border: none; 
+    border-radius: 40px; 
+    cursor: pointer;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+}
+
+
+/* =========================================
+   8. SIMULATION PAGE STYLES
+   ========================================= */
+.simulation-page {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly; /* Spreads the Header and Panel perfectly */
+    width: 100%;
+    /* Uses vh for padding, with extra at the bottom to avoid the iOS/Android swipe bar */
+    padding: 2vh 5% calc(env(safe-area-inset-bottom, 20px) + 2vh) 5%; 
+    
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.sim-header {
+    text-align: center;
+    background: rgba(232, 236, 203, 0.9); 
+    padding: 2vh 30px; /* Dynamic vertical padding */
+    border-radius: 20px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+#combinationTitle {
+    font-size: 22px;
+    color: #5E6630;
+    margin-bottom: 0.5vh;
+    transition: opacity 0.5s;
+}
+
+.sim-subtitle {
+    font-size: 14px;
+    color: #5E6630;
+    opacity: 0.8;
+    font-weight: bold;
+}
+
+/* Glassy Control Panel Card */
+.control-panel {
+    width: 100%;
+    max-width: 500px;
+    background: #C1CB84; 
+    padding: 4vh 30px; /* Scales padding based on phone height */
+    border-radius: 25px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+    display: flex;
+    flex-direction: column;
+    gap: 3.5vh; /* DYNAMIC GAP: perfectly spaces sliders without overflowing */
+    margin: 0 auto;
+}
+
+.slider-group {
+    display: flex;
+    flex-direction: column;
+    gap: 1vh; /* Dynamic space between text and the slider bar */
+}
+
+/* Centered Text Headers */
+.slider-header {
+    display: flex;
+    flex-direction: column; 
+    justify-content: center;
+    align-items: center;    
+    text-align: center;
+    font-weight: bold;
+    font-size: 16px; /* Scaled down slightly to guarantee fit */      
+    color: #4D5425;
+    gap: 0.5vh;               
+}
+
+/* Makes the changing values (like "Moderate") look a bit softer */
+.slider-header span {
+    font-size: 13px;
+    font-weight: normal;
+    opacity: 0.85;
+}
+
+/* =========================================
+   10. FLOATING LICENSE BUTTON
+   ========================================= */
+.license-floating-btn {
+    position: fixed;
+    bottom: 15px;
+    right: 15px; 
+    background: rgba(232, 236, 203, 0.8); 
+    border: 2px solid rgba(94, 102, 48, 0.3);
+    border-radius: 8px;
+    padding: 6px;
+    cursor: pointer;
+    z-index: 500; 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.15);
+    transition: transform 0.2s, background 0.2s;
+}
+
+.license-floating-btn:hover {
+    transform: scale(1.05);
+    background: #E8ECCB;
+}
+
+.license-floating-btn img {
+    height: 20px; 
+    opacity: 0.9;
+}

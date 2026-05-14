@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tinnitus Simulator - Experience</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <nav class="navbar">
+        <h1>Online Tinnitus Simulator</h1>
+        <a href="index.html">Back to Selection</a>
+    </nav>
+
+    <main class="simulation-page">
+
+        <div class="sim-header">
+            <h1 id="combinationTitle">Activate</h1>
+            <p class="sim-subtitle">Tap anywhere on the screen to start the simulation</p>
+        </div>
+
+        <div class="control-panel">
+
+            <div class="slider-group">
+                <div class="slider-header">
+                    <label>Tinnitus Volume</label>
+                    <span id="tinnitusSeverityValue">Moderate</span>
+                </div>
+                <input type="range" id="tinnitus-volume" class="custom-slider" min="0" max="1" step="0.01" value="0.5">
+            </div>
+
+            <div class="slider-group">
+                <div class="slider-header">
+                    <label>Environment Volume</label>
+                    <span id="envVolumeValue">Moderate</span> 
+                </div>
+                <input type="range" id="env-volume" class="custom-slider" min="0" max="1" step="0.01" value="0.3">
+            </div>
+
+            <div class="slider-group">
+                <div class="slider-header">
+                    <label>Frequency / Rhythm</label>
+                    <span id="freqValue"></span>
+                </div>
+                <input type="range" id="pitch" class="custom-slider">
+            </div>
+
+            <div class="slider-group">
+                <div class="slider-header">
+                    <label>Ear Balance</label>
+                    <span>Left / Right</span>
+                </div>
+                <input type="range" id="panner" class="custom-slider" min="-1" max="1" step="0.01" value="0">
+            </div>
+
+        </div>
+
+    </main>
+
+    <script src="engine.js"></script>
+
+    <script src="engine.js"></script>
+
+    <button id="licenseBtn" class="license-floating-btn" aria-label="License Information">
+        <img alt="CC License" src="https://i.creativecommons.org/l/by/4.0/88x31.png" />
+    </button>
+
+    <div class="popup-overlay" id="licenseOverlay">
+        <div class="popup-box">
+            <button class="close-popup" id="closeLicense">×</button>
+            <h2 style="margin-bottom: 15px;">License Information</h2>
+            <p style="color: #5E6630; font-size: 16px; line-height: 1.5;">
+                Rujuta Agre, Defne Celik, Kjetil Falkenberg &copy; 2026.<br><br>
+                This work is licensed under a <br>
+                <a rel="license" href="http://creativecommons.org/licenses/by/4.0/" target="_blank" style="color: #5E6630; font-weight: bold;">
+                    Creative Commons Attribution 4.0 International License
+                </a>.
+            </p>
+            <img alt="Creative Commons License" style="margin-top: 25px; border-width:0;" src="https://i.creativecommons.org/l/by/4.0/88x31.png" />
+        </div>
+    </div>
+
+    <script>
+        const licenseBtn = document.getElementById('licenseBtn');
+        const licenseOverlay = document.getElementById('licenseOverlay');
+        const closeLicense = document.getElementById('closeLicense');
+
+        // Öppna
+        licenseBtn.addEventListener('click', () => {
+            licenseOverlay.classList.add('active');
+        });
+
+        // Stäng via kryss
+        closeLicense.addEventListener('click', () => {
+            licenseOverlay.classList.remove('active');
+        });
+
+        // Stäng genom att klicka utanför rutan
+        licenseOverlay.addEventListener('click', (e) => {
+            if (e.target === licenseOverlay) {
+                licenseOverlay.classList.remove('active');
+            }
+        });
+    </script>
+
+
+
+</body>
+</html>

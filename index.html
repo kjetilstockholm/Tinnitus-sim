@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tinnitus Simulator - Selection</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <nav class="navbar">
+        <h1>Online Tinnitus Simulator</h1>
+        <a href="index.html">Home</a>
+    </nav>
+
+    <main class="main-container">
+
+        <h2 class="section-title">Choose Environment <span class="swipe-hint">(swipe)</span></h2>
+        <div class="carousel-container">
+            <div class="horizontal-carousel" id="envCarousel">
+                <div class="env-card env-none" data-name="none" data-image="">None</div>
+                <div class="env-card env-traffic" data-name="traffic" data-image="assets/Traffic.jpg">Traffic</div>
+                <div class="env-card env-sleeping" data-name="sleeping" data-image="assets/Sleeping.jpg">Sleeping</div>
+                <div class="env-card env-crowded" data-name="crowded" data-image="assets/Crowd.jpg">Crowded</div>
+                <div class="env-card env-nature" data-name="nature" data-image="assets/Nature.jpg">Nature</div>
+            </div>
+        </div>
+
+        <div class="plus-icon">+</div>
+
+        <h2 class="section-title">Choose Tinnitus <span class="swipe-hint">(swipe)</span></h2>
+        <div class="carousel-container">
+            <div class="horizontal-carousel" id="tinnitusCarousel">
+                <div class="tinnitus-card" data-tinnitus="sine">
+                    Ringing <span class="info-btn">ⓘ</span>
+                </div>
+                <div class="tinnitus-card" data-tinnitus="sawtooth">
+                    Buzzing <span class="info-btn">ⓘ</span>
+                </div>
+                <div class="tinnitus-card" data-tinnitus="pulsatile">
+                    Pulsatile <span class="info-btn">ⓘ</span>
+                </div>
+                <div class="tinnitus-card" data-tinnitus="clicking">
+                    Clicking <span class="info-btn">ⓘ</span>
+                </div>
+                <div class="tinnitus-card" data-tinnitus="hissing">
+                    Hissing <span class="info-btn">ⓘ</span>
+                </div>
+                <div class="tinnitus-card" data-tinnitus="humming">
+                    Humming <span class="info-btn">ⓘ</span>
+                </div>
+                <div class="tinnitus-card" data-tinnitus="fullness">
+                    Fullness <span class="info-btn">ⓘ</span>
+                </div>
+            </div>
+        </div>
+
+         <div class="action-row">
+            <button id="calibrateBtn" class="calibrate-button">Calibrate</button>
+            <button id="playButton" class="play-button">Play</button>
+        </div>
+
+    </main>
+    
+    <div class="popup-overlay" id="calOverlay">
+        <div class="popup-box">
+            <button class="close-popup" id="closeCal">×</button>
+            <h2 style="margin-bottom: 10px;">Step 1: Calibration</h2>
+            <p style="margin-bottom: 25px;">We need to set your baseline. Adjust your <b>device volume</b> until you can just hear the tone below.</p>
+            
+            <button id="testToneBtn" class="play-button" style="padding: 12px 30px; font-size: 16px; width: 100%;">Play Test Tone</button>
+            
+            <div style="margin-top: 20px;">
+                <button id="finishCalBtn" class="play-button" style="background: #C1CB84; color: #5E6630; width: 100%;">Done</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="popup-overlay" id="popupOverlay">
+        <div class="popup-box">
+            <button class="close-popup" id="closePopup">×</button>
+            <h2 id="popupTitle"></h2>
+            <p id="popupDescription" style="margin-top: 15px;"></p>
+        </div>
+    </div>
+
+    <script src="bridge.js"></script>
+
+    <button id="licenseBtn" class="license-floating-btn" aria-label="License Information">
+        <img alt="CC License" src="https://i.creativecommons.org/l/by/4.0/88x31.png" />
+    </button>
+
+    <div class="popup-overlay" id="licenseOverlay">
+        <div class="popup-box">
+            <button class="close-popup" id="closeLicense">×</button>
+            <h2 style="margin-bottom: 15px;">License Information</h2>
+            <p style="color: #5E6630; font-size: 16px; line-height: 1.5;">
+                Rujuta Agre, Defne Celik, Kjetil Falkenberg &copy; 2026.<br><br>
+                This work is licensed under a <br>
+                <a rel="license" href="http://creativecommons.org/licenses/by/4.0/" target="_blank" style="color: #5E6630; font-weight: bold;">
+                    Creative Commons Attribution 4.0 International License
+                </a>.
+            </p>
+            <img alt="Creative Commons License" style="margin-top: 25px; border-width:0;" src="https://i.creativecommons.org/l/by/4.0/88x31.png" />
+        </div>
+    </div>
+
+    <script>
+        const licenseBtn = document.getElementById('licenseBtn');
+        const licenseOverlay = document.getElementById('licenseOverlay');
+        const closeLicense = document.getElementById('closeLicense');
+
+        // Öppna
+        licenseBtn.addEventListener('click', () => {
+            licenseOverlay.classList.add('active');
+        });
+
+        // Stäng via kryss
+        closeLicense.addEventListener('click', () => {
+            licenseOverlay.classList.remove('active');
+        });
+
+        // Stäng genom att klicka utanför rutan
+        licenseOverlay.addEventListener('click', (e) => {
+            if (e.target === licenseOverlay) {
+                licenseOverlay.classList.remove('active');
+            }
+        });
+    </script>
+
+</body>
+</html>
